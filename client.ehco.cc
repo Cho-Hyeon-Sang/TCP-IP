@@ -7,14 +7,14 @@
 #include <arpa/inet.h>
 #include <sys/stat.h>
 /////////////////////////
-#define MAXLINE 1024
+#define MAXBUF 1024
 
 int main(int argc, char *argv[])
 {
 	struct sockaddr_in serveraddr;
 	int server_sockfd;
 	int client_len;
-	char buf[MAXLINE];
+	char buf[MAXBUF];
 
 	if((server_sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
 	{
@@ -35,15 +35,15 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	memset(buf, 0x00, MAXLINE);
-	read(0, buf, MAXLINE);
-	if(write(server_sockfd, buf, MAXLINE) <= 0)
+	memset(buf, 0x00, MAXBUF);
+	read(0, buf, MAXBUF);
+	if(write(server_sockfd, buf, MAXBUF) <= 0)
 	{
 		perror("write error : ");
 		return 1;
 	}
-	memset(buf, 0x00, MAXLINE);
-	if(read(server_sockfd, buf, MAXLINE) <= 0)
+	memset(buf, 0x00, MAXBUF);
+	if(read(server_sockfd, buf, MAXBUF) <= 0)
 	{
 		perror("read error : ");
 		return 1;
