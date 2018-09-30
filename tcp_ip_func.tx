@@ -79,7 +79,7 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) : server
 [
 
 	sockfd : 
-		socket 함수를 이용해서 생성된 소켓으로 ㅡㄹ라이언트의 연결 요청을 받아들이는 듣기 소켓
+		socket 함수를 이용해서 생성된 소켓으로 ㅡ클라이언트의 연결 요청을 받아들이는 듣기 소켓
 
 	addr : 
 		accept 함수가 성공하게 되면 연결된 클라이언트의 주소와 포트 정보를 이 구조체에 복사해서 넘겨준다
@@ -93,9 +93,37 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) : server
 	
 ]
 // 연결시도
-connect() : client
+int connect(int sockfd, const struct sockaddr *serv_addr, socklen_t addrlen) : client
+[
+	sockfd : 
+			socket 함수로 생성된 소켓 지정 번호
+
+	serv_addr : 
+			연결할 서버의 ip주소와 포트 등의 정보를 알려주기 위해 사용
+
+	addrlen : 
+			serv_addr의 크기
+
+	return value 0 : success
+				-1 : fail
+]
 // 데이터 통신
-read() / write()
+ssize_t read(int fd, void *buf, size_t count)
+ssize_t write(int fd, void *buf, size_t count)
+[
+	fd : 
+		열린 파일의 파일 지정 번호 server에서는 accept로 생성된 소켓 client에서는 socket 함수로 생성된 소켓
+
+	buf :
+		읽어들인 데이터가 저장될 버퍼 변수
+
+	count : 
+		읽어들일 데이터의 크기
+
+	return value n : success (이때 반환값은 읽어들인 데이터의 크기(byte)를 반환)
+				-1 : fail
+
+]
 // 연결 종료
 close()
 
